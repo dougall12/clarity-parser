@@ -7,7 +7,7 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
 function getData() {
   try {
-    const xml = fs.readFileSync(__dirname + "/tet.xml", "utf-8");
+    const xml = fs.readFileSync(__dirname + "/parseTest.xml", "utf-8");
     const data = `${xml}`;
     return data;
   } catch (e) {
@@ -25,8 +25,35 @@ const options = {
 const parser = new XMLParser(options);
 let jObj = parser.parse(xmlData);
 
-// console.log(jObj.Clarity.Contact.Document.Detail.AccountRef);
-// console.log(jObj.Clarity.Contact.Document.Reference);
+let inv = jObj.Clarity.Contact;
+
+const records = inv.map((obj) => {
+  let rObj = {
+    name: obj.Document.Detail.AccountRef,
+    email: obj.Document.Email,
+    invoiceNo: obj.Document.References.Id,
+    address1: obj.Document.InvoiceAddress.Address1,
+    address2: obj.Document.InvoiceAddress.Address2,
+    address3: obj.Document.InvoiceAddress.Address3,
+    city: obj.Document.InvoiceAddress.City,
+    region: obj.Document.InvoiceAddress.County,
+    postcode: obj.Document.InvoiceAddress.Postcode,
+    country: obj.Document.InvoiceAddress.Country,
+    ref: obj.Document.Reference,
+    invoiceDate: obj.Document["@_DateTime"],
+    dueDate: obj.Document.Item.RequiredDate,
+    total: obj.Document.Totals.TotalPrice,
+    description: obj.Document.Item.Description,
+    quantity: obj.Document.Item.Quantity,
+    unitAmount: obj.Document.Item.UnitPrice,
+    discount: obj.Document.Item.Discount,
+    accountCode: obj.Document.Item.NominalCode,
+    taxType: obj.Document.Item.TaxCode,
+    taxAmount: obj.Document.Item.TaxRate,
+    currency: obj.Document.Detail.PriceCurrency,
+  };
+  return rObj;
+});
 
 const csvWriter = createCsvWriter({
   path: __dirname + "/test.csv",
@@ -55,35 +82,6 @@ const csvWriter = createCsvWriter({
     { id: "currency", title: "Currency" },
   ],
 });
-
-const name = jObj.Clarity.Contact.Document.Detail.AccountRef;
-const invoice = jObj.Clarity.Contact.Document.References.Id;
-const address1 = jObj.Clarity.Contact.Document.InvoiceAddress.Address1;
-const address2 = jObj.Clarity.Contact.Document.InvoiceAddress.Address2;
-const address3 = jObj.Clarity.Contact.Document.InvoiceAddress.Address3;
-const city = jObj.Clarity.Contact.Document.InvoiceAddress.City;
-const region = jObj.Clarity.Contact.Document.InvoiceAddress.County;
-const postcode = jObj.Clarity.Contact.Document.InvoiceAddress.Postcode;
-const country = jObj.Clarity.Contact.Document.InvoiceAddress.Country;
-const ref = jObj.Clarity.Contact.Document.Reference;
-const invoiceDate = jObj.Clarity.Contact.Document["@_DateTime"];
-const dueDate = jObj.Clarity.Contact.Document.Item.RequiredDate;
-const total = jObj.Clarity.Contact.Document.Totals.TotalPrice;
-const description = jObj.Clarity.Contact.Document.Item.Description;
-const quantity = jObj.Clarity.Contact.Document.Item.Quantity;
-const unitAmount = jObj.Clarity.Contact.Document.Item.UnitPrice;
-const discount = jObj.Clarity.Contact.Document.Item.Discount;
-const accountCode = jObj.Clarity.Contact.Document.Item.NominalCode;
-const taxType = jObj.Clarity.Contact.Document.Item.TaxCode;
-const taxAmount = jObj.Clarity.Contact.Document.Item.TaxRate;
-const currency = jObj.Clarity.Contact.Document.Detail.PriceCurrency;
-
-const records = [
-  {
-    name: name,
-    invoiceNo: invoice,
-  },
-];
 
 csvWriter.writeRecords(records).then(() => {
   console.log("...done");
