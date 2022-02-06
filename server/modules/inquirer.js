@@ -14,18 +14,6 @@ export default function () {
         }
       },
     },
-    {
-      name: "outputPath",
-      type: "input",
-      message: "Enter CSV Output path:",
-      validate: function (value) {
-        if (value.length) {
-          return true;
-        } else {
-          return "Please enter file path!";
-        }
-      },
-    },
   ];
   return inquirer.prompt(questions);
 }

@@ -18,7 +18,8 @@ const run = async () => {
   //!Stored as inputPath & outputPath
 
   const XMLpath = pathObj.inputPath;
-  const outPath = pathObj.outputPath;
+  const outPath =
+    XMLpath.substr(0, XMLpath.lastIndexOf("\\") + 1) + "output.csv";
 
   writeCsv(records(XMLpath), outPath);
 };
