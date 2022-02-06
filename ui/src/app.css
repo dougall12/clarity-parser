@@ -19,6 +19,20 @@
   flex-direction: column;
 }
 
+h1 {
+  align-self: center;
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+h5 {
+  align-self: center;
+  text-align: center;
+  width: 50%;
+  padding: 0;
+  margin: 10px;
+}
+
 .form {
   display: flex;
   flex-direction: column;

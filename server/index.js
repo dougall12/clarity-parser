@@ -1,27 +1,52 @@
 #!/usr/bin/env node
 
+import express from "express";
+import bodyParser from "body-parser";
+const app = express();
+
 import chalk from "chalk";
 import clear from "clear";
 import figlet from "figlet";
-import records from "./modules/parseXML.js";
 import writeCsv from "./modules/writeCsv.js";
 import inquirer from "./modules/inquirer.js";
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 clear();
 
 console.log(chalk.red(figlet.textSync("FP", { horizontalLayout: "full" })));
 
-const run = async () => {
-  //Prompt User for file paths
-  const pathObj = await inquirer();
+//!API Route
 
-  //!Stored as inputPath & outputPath
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 
-  const XMLpath = pathObj.inputPath;
-  const outPath =
-    XMLpath.substr(0, XMLpath.lastIndexOf("\\") + 1) + "output.csv";
+app.post("/api/csv", (req, res) => {
+  try {
+    writeCsv(req.body, `C:\Users\sdoug\Desktop\clarity-parser\output.csv`);
+    res.send("...Done");
+  } catch (e) {
+    console.error(e);
+  }
+});
 
-  writeCsv(records(XMLpath), outPath);
-};
+//!CLI Route
+// const run = async () => {
+//   //Prompt User for file paths
+//   const pathObj = await inquirer();
 
-run();
+//   //?Stored as inputPath & outputPath
+
+//   const XMLpath = pathObj.inputPath;
+//   const outPath =
+//     XMLpath.substr(0, XMLpath.lastIndexOf("\\") + 1) + "output.csv";
+
+//   writeCsv(records(XMLpath), outPath);
+// };
+
+// run();
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
