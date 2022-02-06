@@ -1,9 +1,12 @@
 {
   "name": "zero",
   "version": "1.0.0",
-  "description": "",
-  "main": "parse.js",
+  "description": "Parse Clarity output in XML to pass to CSV writer for input to Xero Software",
+  "main": "index.js",
   "type": "module",
+  "bin": {
+    "clarity": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
