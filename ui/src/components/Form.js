@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { XMLParser } from "fast-xml-parser";
 
 const Form = () => {
+  const [filePath, setFilePath] = useState();
+
   const {
     register,
     handleSubmit,
@@ -54,7 +56,10 @@ const Form = () => {
         return rObj;
       });
       console.log(records);
-      axios.post("/api/csv", records);
+      axios.post("/api/csv", records).then((res) => {
+        setFilePath(res.data);
+        console.log(res.data);
+      });
     };
   };
   return (
@@ -76,6 +81,13 @@ const Form = () => {
           </p>
 
           <input className='submitButton' type='submit' value='Generate CSV' />
+          {filePath && (
+            <>
+              <h5>New Csv created</h5>
+
+              <p className='fileLink'>{filePath}</p>
+            </>
+          )}
         </div>
       </form>
     </>

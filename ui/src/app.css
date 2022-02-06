@@ -83,6 +83,10 @@ h5 {
   visibility: unset;
 }
 
+.fileLink {
+  color: #b90748;
+}
+
 input[type="file"] {
   display: none;
 }

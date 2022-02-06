@@ -2,6 +2,7 @@
 
 import express from "express";
 import bodyParser from "body-parser";
+import path from "path";
 const app = express();
 
 import chalk from "chalk";
@@ -24,9 +25,11 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/csv", (req, res) => {
+  const outPath = "output.csv";
   try {
-    writeCsv(req.body, `C:\Users\sdoug\Desktop\clarity-parser\output.csv`);
-    res.send("...Done");
+    writeCsv(req.body, outPath);
+    const newCsv = path.resolve(outPath);
+    res.send(newCsv);
   } catch (e) {
     console.error(e);
   }
