@@ -1,9 +1,10 @@
 //! Write Imports
 import { createObjectCsvWriter } from "csv-writer";
+import path from "path";
 
 export default function (records, outPath) {
   const csvWriter = createObjectCsvWriter({
-    path: `${outPath}`,
+    path: outPath,
     header: [
       { id: "name", title: "ContactName" },
       { id: "email", title: "EmailAddress" },

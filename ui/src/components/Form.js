@@ -32,7 +32,7 @@ const Form = () => {
         let rObj = {
           name: obj.Document.Detail.AccountRef,
           email: obj.Document.Email,
-          invoiceNo: obj.Document.References.Id,
+          invoiceNo: obj.Document.Reference,
           address1: obj.Document.InvoiceAddress.Address1,
           address2: obj.Document.InvoiceAddress.Address2,
           address3: obj.Document.InvoiceAddress.Address3,
@@ -40,7 +40,7 @@ const Form = () => {
           region: obj.Document.InvoiceAddress.County,
           postcode: obj.Document.InvoiceAddress.Postcode,
           country: obj.Document.InvoiceAddress.Country,
-          ref: obj.Document.Reference,
+          ref: obj.Document.References.Id,
           invoiceDate: obj.Document["@_DateTime"],
           dueDate: obj.Document.Item.RequiredDate,
           total: obj.Document.Totals.TotalPrice,
@@ -55,10 +55,8 @@ const Form = () => {
         };
         return rObj;
       });
-      console.log(records);
       axios.post("/api/csv", records).then((res) => {
         setFilePath(res.data);
-        console.log(res.data);
       });
     };
   };
