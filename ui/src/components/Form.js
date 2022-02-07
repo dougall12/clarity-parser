@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { XMLParser } from "fast-xml-parser";
+import XMLtoCsvFormat from "../modules/parseXML";
 
 const Form = () => {
   const [filePath, setFilePath] = useState();
@@ -19,69 +19,9 @@ const Form = () => {
     reader.onloadend = function () {
       let xmlData = reader.result;
 
-      const options = {
-        ignoreDeclaration: true,
-        ignoreAttributes: false,
-      };
+      let arr = XMLtoCsvFormat(xmlData);
 
-      const parser = new XMLParser(options);
-      let jObj = parser.parse(xmlData);
-
-      let inv = jObj.Clarity.Contact;
-
-      //!Check if 1 or multiple
-      if (inv instanceof Array === false) {
-        inv = [inv];
-      }
-
-      //!Account and Address Object
-
-      const heads = inv.map((a) => {
-        let rA = {
-          name: a.Document.Detail.AccountRef,
-          email: a.Email,
-          invoiceNo: a.Document.Reference,
-          address1: a.Document.InvoiceAddress.Address1,
-          address2: a.Document.InvoiceAddress.Address2,
-          address3: a.Document.InvoiceAddress.Address3,
-          city: a.Document.InvoiceAddress.City,
-          region: a.Document.InvoiceAddress.County,
-          postcode: a.Document.InvoiceAddress.Postcode,
-          country: a.Document.InvoiceAddress.Country,
-          ref: a.Document.References.Id,
-          invoiceDate: a.Document["@_DateTime"],
-          currency: a.Document.Detail.PriceCurrency,
-          // total: a.Document.Totals.TotalPrice,
-        };
-        return rA;
-      });
-
-      //!Item specific details
-      const records = inv[0].Document.Item.map((obj) => {
-        let rObj = {
-          dueDate: obj.RequiredDate,
-          description: obj.Description,
-          quantity: obj.Quantity,
-          unitAmount: obj.UnitPrice,
-          discount: obj.Discount,
-          accountCode: obj.NominalCode,
-          taxType: obj.TaxCode,
-          taxAmount: obj.TaxRate * obj.UnitPrice,
-          total: obj.UnitPrice * obj.Quantity,
-        };
-
-        return rObj;
-      });
-
-      //!Account and Address Object
-      const headObject = heads[0];
-
-      const arr = records.map((el) => {
-        let newArr = { ...headObject, ...el };
-        return newArr;
-      });
-
-      axios.post("/api/csv", arr).then((res) => {
+      axios.post("/api/csv", { xml: arr, path: e.outPath }).then((res) => {
         setFilePath(res.data);
       });
     };
@@ -100,6 +40,19 @@ const Form = () => {
             />
           </label>
 
+          <label className='label' for='outPath'>
+            Output File Name
+          </label>
+          <input
+            id='outPath'
+            placeholder='Please enter file name...'
+            {...register("outPath", { required: true, pattern: /\.csv/i })}
+            type='text'
+          ></input>
+
+          <p className={`errorMessage ${errors.outPath ? "error" : ""}`}>
+            Please add .csv to the end of the file name
+          </p>
           <p className={`errorMessage ${errors.inputPath ? "error" : ""}`}>
             Please select an XML file to process
           </p>

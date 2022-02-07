@@ -53,6 +53,11 @@ h5 {
   align-self: center;
 }
 
+.label {
+  align-self: center;
+  margin-top: 20px;
+}
+
 .formLabels,
 .submitButton {
   padding: 10px;
