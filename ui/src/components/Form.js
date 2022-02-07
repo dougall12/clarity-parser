@@ -18,6 +18,7 @@ const Form = () => {
     reader.readAsText(file);
     reader.onloadend = function () {
       let xmlData = reader.result;
+
       const options = {
         ignoreDeclaration: true,
         ignoreAttributes: false,
@@ -28,34 +29,59 @@ const Form = () => {
 
       let inv = jObj.Clarity.Contact;
 
-      const records = inv.map((obj) => {
-        let rObj = {
-          name: obj.Document.Detail.AccountRef,
-          email: obj.Document.Email,
-          invoiceNo: obj.Document.Reference,
-          address1: obj.Document.InvoiceAddress.Address1,
-          address2: obj.Document.InvoiceAddress.Address2,
-          address3: obj.Document.InvoiceAddress.Address3,
-          city: obj.Document.InvoiceAddress.City,
-          region: obj.Document.InvoiceAddress.County,
-          postcode: obj.Document.InvoiceAddress.Postcode,
-          country: obj.Document.InvoiceAddress.Country,
-          ref: obj.Document.References.Id,
-          invoiceDate: obj.Document["@_DateTime"],
-          dueDate: obj.Document.Item.RequiredDate,
-          total: obj.Document.Totals.TotalPrice,
-          description: obj.Document.Item.Description,
-          quantity: obj.Document.Item.Quantity,
-          unitAmount: obj.Document.Item.UnitPrice,
-          discount: obj.Document.Item.Discount,
-          accountCode: obj.Document.Item.NominalCode,
-          taxType: obj.Document.Item.TaxCode,
-          taxAmount: obj.Document.Item.TaxRate,
-          currency: obj.Document.Detail.PriceCurrency,
+      //!Check if 1 or multiple
+      if (inv instanceof Array === false) {
+        inv = [inv];
+      }
+
+      //!Account and Address Object
+
+      const heads = inv.map((a) => {
+        let rA = {
+          name: a.Document.Detail.AccountRef,
+          email: a.Email,
+          invoiceNo: a.Document.Reference,
+          address1: a.Document.InvoiceAddress.Address1,
+          address2: a.Document.InvoiceAddress.Address2,
+          address3: a.Document.InvoiceAddress.Address3,
+          city: a.Document.InvoiceAddress.City,
+          region: a.Document.InvoiceAddress.County,
+          postcode: a.Document.InvoiceAddress.Postcode,
+          country: a.Document.InvoiceAddress.Country,
+          ref: a.Document.References.Id,
+          invoiceDate: a.Document["@_DateTime"],
+          currency: a.Document.Detail.PriceCurrency,
+          // total: a.Document.Totals.TotalPrice,
         };
+        return rA;
+      });
+
+      //!Item specific details
+      const records = inv[0].Document.Item.map((obj) => {
+        let rObj = {
+          dueDate: obj.RequiredDate,
+          description: obj.Description,
+          quantity: obj.Quantity,
+          unitAmount: obj.UnitPrice,
+          discount: obj.Discount,
+          accountCode: obj.NominalCode,
+          taxType: obj.TaxCode,
+          taxAmount: obj.TaxRate * obj.UnitPrice,
+          total: obj.UnitPrice * obj.Quantity,
+        };
+
         return rObj;
       });
-      axios.post("/api/csv", records).then((res) => {
+
+      //!Account and Address Object
+      const headObject = heads[0];
+
+      const arr = records.map((el) => {
+        let newArr = { ...headObject, ...el };
+        return newArr;
+      });
+
+      axios.post("/api/csv", arr).then((res) => {
         setFilePath(res.data);
       });
     };

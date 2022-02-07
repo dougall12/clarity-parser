@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/csv", (req, res) => {
-  const outPath = "Z:/Users/sarah/output.csv";
+  const outPath = "Z:/Users/sarah/Xero-Test/output.csv";
   try {
     writeCsv(req.body, outPath);
     const newCsv = path.resolve(outPath);
@@ -52,6 +52,4 @@ app.post("/api/csv", (req, res) => {
 // run();
 
 const port = process.env.PORT || 5000;
-app.listen(port, "192.168.0.79", () =>
-  console.log(`Listening on port ${port}...`)
-);
+app.listen(port, () => console.log(`Listening on port ${port}...`));

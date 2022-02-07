@@ -19,7 +19,7 @@ export default function (records, outPath) {
       { id: "ref", title: "Reference" },
       { id: "invoiceDate", title: "InvoiceDate" },
       { id: "dueDate", title: "DueDate" },
-      { id: "total", title: "total" },
+      { id: "total", title: "Total" },
       { id: "description", title: "Description" },
       { id: "quantity", title: "Quantity" },
       { id: "unitAmount", title: "UnitAmount" },
