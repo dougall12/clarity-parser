@@ -3,17 +3,23 @@
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
+import { fileURLToPath } from "url";
+import writeCsv from "./modules/writeCsv.js";
 const app = express();
 
-import writeCsv from "./modules/writeCsv.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log(path.join(__dirname, "../ui/build"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, "../ui/build")));
+
 //!API Route
 
 app.get("/", (req, res) => {
-  res.sendFile();
+  res.sendFile(__dirname, "../ui/build", "index.html");
 });
 
 app.post("/api/csv", (req, res) => {
