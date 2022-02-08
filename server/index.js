@@ -5,23 +5,15 @@ import bodyParser from "body-parser";
 import path from "path";
 const app = express();
 
-import chalk from "chalk";
-import clear from "clear";
-import figlet from "figlet";
 import writeCsv from "./modules/writeCsv.js";
-import inquirer from "./modules/inquirer.js";
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-clear();
-
-console.log(chalk.red(figlet.textSync("FP", { horizontalLayout: "full" })));
-
 //!API Route
 
 app.get("/", (req, res) => {
-  res.send("API is running");
+  res.sendFile();
 });
 
 app.post("/api/csv", (req, res) => {
@@ -51,5 +43,7 @@ app.post("/api/csv", (req, res) => {
 
 // run();
 
-const port = process.env.PORT || 5000;
-app.listen(port, "0.0.0.0", () => console.log(`Listening on port ${port}...`));
+const port = process.env.PORT || 8080;
+app.listen(port, "192.168.0.79", () =>
+  console.log(`Listening on port ${port}...`)
+);
