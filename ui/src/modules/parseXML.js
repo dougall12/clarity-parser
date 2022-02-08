@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import alterAddress from "./alterAddress";
 
 export default function XMLtoCsvFormat(xmlData) {
   const options = {
@@ -35,6 +36,7 @@ export default function XMLtoCsvFormat(xmlData) {
       currency: a.Document.Detail.PriceCurrency,
       // total: a.Document.Totals.TotalPrice,
     };
+    alterAddress(rA);
     return rA;
   });
 
