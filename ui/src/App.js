@@ -1,4 +1,4 @@
-import { Form, Title } from "./components";
+import { Form, Title, Drop } from "./components";
 import "./app.css";
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
     <div className='App'>
       <Title />
       <Form />
+      <Drop />
     </div>
   );
 }
