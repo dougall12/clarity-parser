@@ -48,12 +48,16 @@ export default function XMLtoCsvFormat(xmlData) {
     let rObj = {
       description: obj.Description,
       quantity: obj.Quantity,
-      unitAmount: obj.UnitPrice || 0,
+      unitAmount: obj.UnitPrice,
       discount: obj.Discount,
       accountCode: obj.NominalCode,
-      taxType: obj.TaxCode || 0,
-      taxAmount: obj.TaxRate * obj.UnitPrice * obj.Quantity,
-      total: obj.UnitPrice * obj.Quantity,
+      taxType: obj.TaxCode,
+      ...(isNaN(obj.TaxRate * obj.UnitPrice * obj.Quantity)
+        ? { taxAmount: 0 }
+        : { taxAmount: obj.TaxRate * obj.UnitPrice * obj.Quantity }),
+      ...(isNaN(obj.UnitPrice * obj.Quantity)
+        ? { total: 0 }
+        : { total: obj.UnitPrice * obj.Quantity }),
     };
 
     if (rObj.accountCode === 40071) {
