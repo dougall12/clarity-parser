@@ -14,6 +14,9 @@ const Form = () => {
 
   const onSubmit = async (e) => {
     const file = e.inputPath[0];
+
+    const outPath = file.name.replace(/\.[^/.]+$/, ".csv");
+
     const reader = new FileReader();
     reader.readAsText(file);
     reader.onloadend = function () {
@@ -21,7 +24,7 @@ const Form = () => {
 
       let arr = XMLtoCsvFormat(xmlData);
 
-      axios.post("/api/csv", { xml: arr, path: e.outPath }).then((res) => {
+      axios.post("/api/csv", { xml: arr, path: outPath }).then((res) => {
         setFilePath(res.data);
       });
     };
@@ -40,19 +43,6 @@ const Form = () => {
             />
           </label>
 
-          <label className='label' for='outPath'>
-            Output File Name
-          </label>
-          <input
-            id='outPath'
-            placeholder='Please enter file name...'
-            {...register("outPath", { required: true, pattern: /\.csv/i })}
-            type='text'
-          ></input>
-
-          <p className={`errorMessage ${errors.outPath ? "error" : ""}`}>
-            Please add .csv to the end of the file name
-          </p>
           <p className={`errorMessage ${errors.inputPath ? "error" : ""}`}>
             Please select an XML file to process
           </p>

@@ -1,5 +1,6 @@
 export default function alterAddress(object) {
   if (object.name === "PARKDEA2") {
+    object.email = "accountspayable@parkdean-resorts.com";
     object.address1 = "Parkdean Resorts UK Ltd";
     object.address2 = "2nd Floor";
     object.address3 = "One Gosforth Park Way";

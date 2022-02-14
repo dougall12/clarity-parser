@@ -1,5 +1,6 @@
 import { XMLParser } from "fast-xml-parser";
 import alterAddress from "./alterAddress";
+import dueDate from "./dueDate";
 
 export default function XMLtoCsvFormat(xmlData) {
   const options = {
@@ -22,7 +23,7 @@ export default function XMLtoCsvFormat(xmlData) {
   const heads = inv.map((a) => {
     let rA = {
       name: a.Document.Detail.AccountRef,
-      email: a.Email,
+      email: "",
       invoiceNo: a.Document.Reference,
       address1: a.Document.InvoiceAddress.Address1,
       address2: a.Document.InvoiceAddress.Address2,
@@ -33,26 +34,31 @@ export default function XMLtoCsvFormat(xmlData) {
       country: a.Document.InvoiceAddress.Country,
       ref: a.Document.References.Id,
       invoiceDate: a.Document["@_DateTime"],
+      dueDate: dueDate(a.Document["@_DateTime"]),
       currency: a.Document.Detail.PriceCurrency,
       // total: a.Document.Totals.TotalPrice,
     };
     alterAddress(rA);
+
     return rA;
   });
 
   //!Item specific details
   const records = inv[0].Document.Item.map((obj) => {
     let rObj = {
-      dueDate: obj.RequiredDate,
       description: obj.Description,
       quantity: obj.Quantity,
-      unitAmount: obj.UnitPrice,
+      unitAmount: obj.UnitPrice || 0,
       discount: obj.Discount,
       accountCode: obj.NominalCode,
-      taxType: obj.TaxCode,
-      taxAmount: obj.TaxRate * obj.UnitPrice,
+      taxType: obj.TaxCode || 0,
+      taxAmount: obj.TaxRate * obj.UnitPrice * obj.Quantity,
       total: obj.UnitPrice * obj.Quantity,
     };
+
+    if (rObj.accountCode === 40071) {
+      rObj.accountCode = 4022;
+    }
 
     return rObj;
   });
