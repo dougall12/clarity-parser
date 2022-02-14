@@ -55,9 +55,6 @@ export default function XMLtoCsvFormat(xmlData) {
       ...(isNaN(obj.TaxRate * obj.UnitPrice * obj.Quantity)
         ? { taxAmount: 0 }
         : { taxAmount: obj.TaxRate * obj.UnitPrice * obj.Quantity }),
-      ...(isNaN(obj.UnitPrice * obj.Quantity)
-        ? { total: 0 }
-        : { total: obj.UnitPrice * obj.Quantity }),
     };
 
     if (rObj.accountCode === 40071) {
