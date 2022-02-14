@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Clarity xmlns="http://www.touchsystems.co.uk/schemas" Type="Invoice" Source="Clarity" DateTime="2022-02-11T09:38:35.73200"><Contact Type="Customer"><Name>Paul Wiggins</Name><Company>Parkdean Resorts UK Ltd</Company><Telephone>0191 256 0739</Telephone><Email>Paul.Wiggins@Parkdean-Resorts.com</Email><Address><Address1>2ND FLOOR</Address1><Address2>ONE GOSFORTH PARK WAY</Address2><City>GOSFORTH BUSINESS PARK</City><County>NEWCASTLE-UPON-TYNE</County><Postcode>NE12 8ET</Postcode><Country>United Kingdom</Country></Address><Detail><Fax>0191 268 6004/5954</Fax><Type>General</Type><Group>Customer</Group><BusinessType>Parkdean Resorts Holiday Park</BusinessType><KeyProduct>HOLIDAY PARK</KeyProduct><LeadSource>July Newsletter</LeadSource><Currency>GBP</Currency><TaxCode>T1</TaxCode></Detail><Document Type="Invoice" SubType="Standard" DateTime="2022-02-11T09:35:01.00000"><Reference>INV155416</Reference><Title>Pop Up Theatre Set 2022 1set to Kessingland in Feb 2022</Title><Detail><Terms>Payment:  Due at time of order. Authorised account holders payment 30 days after invoice.
+All goods remain the property of Fantasy Prints Limited until payment is made in full.</Terms><PriceCurrency>GBP</PriceCurrency><PriceCurrencyRate>1</PriceCurrencyRate><CustOrderNo>EXEN11397954G</CustOrderNo><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><AccountRef>PARKDEA2</AccountRef></Detail><Item><Partcode>PO NO</Partcode><Description>PO No EXEN11397954G</Description><Quantity>1</Quantity><PackType>Unit(s)</PackType><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>4000</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><Item><Partcode>ITEM</Partcode><Description>Front Cloth 150cm x 140cm – (No eyelets)
+Décor 200 </Description><Quantity>1</Quantity><UnitPrice>59.82</UnitPrice><Notes>Labo</Notes><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>4004</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><Item><Partcode>WIZ-COREX-10MM</Partcode><Description>DESCRIPTION: Front Side Boards LEFT 220cm x 80cm
+-----------------------------------------------------------------
+Graphic Size: 2200 x 800 mm
+Substrate: Correx 10mm White</Description><Quantity>1</Quantity><UnitPrice>56.12</UnitPrice><Notes>Print Machine: Vutex GS2000LX   Ink Used: 0.02 Ltrs   Print Time: 0 Hrs, 5 Mins
+Cutter: Konsberg Flat Bed Cutter    Cutting Time: 0 Hrs, 4 Mins
+JOB NOTES: </Notes><Length>2200</Length><Width>800</Width><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>4016</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><Item><Partcode>WIZ-COREX-10MM</Partcode><Description>DESCRIPTION: Front Side Boards RIGHT 220cm x 80cm
+-----------------------------------------------------------------
+Graphic Size: 2200 x 800 mm
+Substrate: Correx 10mm White</Description><Quantity>1</Quantity><UnitPrice>56.12</UnitPrice><Notes>Print Machine: Vutex GS2000LX   Ink Used: 0.02 Ltrs   Print Time: 0 Hrs, 5 Mins
+Cutter: Konsberg Flat Bed Cutter    Cutting Time: 0 Hrs, 4 Mins
+JOB NOTES: </Notes><Length>2200</Length><Width>800</Width><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>4016</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><Item><Partcode>WIZ-COREX-10MM</Partcode><Description>DESCRIPTION:Outer Boards  (corex) 220cm x 91cm
+DOUBLE SIDED ONE SIDE RED - ONE SIDE BLACK
+-----------------------------------------------------------------
+Graphic Size: 2200 x 910 mm
+Substrate: Correx 10mm White</Description><Quantity>2</Quantity><UnitPrice>121.612</UnitPrice><Notes>Print Machine: Vutex GS2000LX   Ink Used: 0.11 Ltrs   Print Time: 0 Hrs, 20 Mins
+Cutter: Konsberg Flat Bed Cutter    Cutting Time: 0 Hrs, 7 Mins
+JOB NOTES: </Notes><PackType>Unit(s)</PackType><Length>2200</Length><Width>910</Width><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>4016</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><Item><Partcode>WIZ-COREX-10MM</Partcode><Description>DESCRIPTION: Front Centre Board (corex)  200cm x 25cm
+-----------------------------------------------------------------
+Graphic Size: 2000 x 250 mm
+Substrate: Correx 10mm White</Description><Quantity>1</Quantity><UnitPrice>21.448</UnitPrice><Notes>Print Machine: Vutex GS2000LX   Ink Used: 0.01 Ltrs   Print Time: 0 Hrs, 2 Mins
+Cutter: Konsberg Flat Bed Cutter    Cutting Time: 0 Hrs, 3 Mins
+JOB NOTES: </Notes><Length>2000</Length><Width>250</Width><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>4016</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><Item><Partcode>DELIVERY5</Partcode><Description>DELIVERY
+
+KESSINGLAND BEACH
+
+(don't send until requested)
+
+
+</Description><Quantity>1</Quantity><UnitPrice>55</UnitPrice><PackType>Units</PackType><TaxCode>T1</TaxCode><TaxRate>0.2</TaxRate><NominalCode>40071</NominalCode><Discount>0</Discount><RequiredDate>1899-12-30T00:00:00.00000</RequiredDate><References Type="Quotation"><Id>REF165161</Id></References></Item><References Type="Quotation"><Id>REF165161</Id></References><Totals><TotalPrice>491.73</TotalPrice></Totals><InvoiceAddress><Contact>Paul Wiggins</Contact><Company>Parkdean Resorts UK Ltd</Company><Address1>2ND FLOOR</Address1><Address2>ONE GOSFORTH PARK WAY</Address2><City>GOSFORTH BUSINESS PARK</City><County>NEWCASTLE-UPON-TYNE</County><Postcode>NE12 8ET</Postcode><Country>United Kingdom</Country><Telephone>0191 256 0739</Telephone></InvoiceAddress></Document></Contact></Clarity>

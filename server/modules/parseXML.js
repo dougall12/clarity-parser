@@ -1,24 +1,8 @@
-//!Parse Imports
 import { XMLParser } from "fast-xml-parser";
-import fs from "fs";
+import alterAddress from "./alterAddress.js";
+import dueDate from "./dueDate.js";
 
-export default function (XMLpath) {
-  function getData() {
-    try {
-      //read xml
-      const xml = fs.readFileSync(`${XMLpath}`, "utf-8");
-      //format for parser
-      const data = `${xml}`;
-
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  //
-  const xmlData = getData();
-
+export default function XMLtoCsvFormat(xmlData) {
   const options = {
     ignoreDeclaration: true,
     ignoreAttributes: false,
@@ -29,33 +13,63 @@ export default function (XMLpath) {
 
   let inv = jObj.Clarity.Contact;
 
-  const records = inv.map((obj) => {
-    let rObj = {
-      name: obj.Document.Detail.AccountRef,
-      email: obj.Document.Email,
-      invoiceNo: obj.Document.References.Id,
-      address1: obj.Document.InvoiceAddress.Address1,
-      address2: obj.Document.InvoiceAddress.Address2,
-      address3: obj.Document.InvoiceAddress.Address3,
-      city: obj.Document.InvoiceAddress.City,
-      region: obj.Document.InvoiceAddress.County,
-      postcode: obj.Document.InvoiceAddress.Postcode,
-      country: obj.Document.InvoiceAddress.Country,
-      ref: obj.Document.Reference,
-      invoiceDate: obj.Document["@_DateTime"],
-      dueDate: obj.Document.Item.RequiredDate,
-      total: obj.Document.Totals.TotalPrice,
-      description: obj.Document.Item.Description,
-      quantity: obj.Document.Item.Quantity,
-      unitAmount: obj.Document.Item.UnitPrice,
-      discount: obj.Document.Item.Discount,
-      accountCode: obj.Document.Item.NominalCode,
-      taxType: obj.Document.Item.TaxCode,
-      taxAmount: obj.Document.Item.TaxRate,
-      currency: obj.Document.Detail.PriceCurrency,
+  //!Check if 1 or multiple
+  if (inv instanceof Array === false) {
+    inv = [inv];
+  }
+
+  //!Account and Address Object
+
+  const heads = inv.map((a) => {
+    let rA = {
+      name: a.Document.Detail.AccountRef,
+      email: "",
+      invoiceNo: a.Document.Reference,
+      address1: a.Document.InvoiceAddress.Address1,
+      address2: a.Document.InvoiceAddress.Address2,
+      address3: a.Document.InvoiceAddress.Address3,
+      city: a.Document.InvoiceAddress.City,
+      region: a.Document.InvoiceAddress.County,
+      postcode: a.Document.InvoiceAddress.Postcode,
+      country: a.Document.InvoiceAddress.Country,
+      ref: a.Document.References.Id,
+      invoiceDate: a.Document["@_DateTime"],
+      dueDate: dueDate(a.Document["@_DateTime"]),
+      currency: a.Document.Detail.PriceCurrency,
+      // total: a.Document.Totals.TotalPrice,
     };
+    alterAddress(rA);
+
+    return rA;
+  });
+
+  //!Item specific details
+  const records = inv[0].Document.Item.map((obj) => {
+    let rObj = {
+      description: obj.Description,
+      quantity: obj.Quantity,
+      unitAmount: obj.UnitPrice || 0,
+      discount: obj.Discount,
+      accountCode: obj.NominalCode,
+      taxType: obj.TaxCode || 0,
+      taxAmount: obj.TaxRate * obj.UnitPrice * obj.Quantity,
+      total: obj.UnitPrice * obj.Quantity,
+    };
+
+    if (rObj.accountCode === 40071) {
+      rObj.accountCode = 4022;
+    }
+
     return rObj;
   });
 
-  return records;
+  //!Account and Address Object
+  const headObject = heads[0];
+
+  const arr = records.map((el) => {
+    let newArr = { ...headObject, ...el };
+    return newArr;
+  });
+
+  return arr;
 }
