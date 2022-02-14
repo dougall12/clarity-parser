@@ -3,7 +3,7 @@ import fs from "fs";
 import writeCsv from "./writeCsv.js";
 import XMLtoCsvFormat from "./parseXML.js";
 
-const watcher = chokidar.watch("../testFolder", {
+const watcher = chokidar.watch("../outputFolder", {
   ignored: /\.csv/i,
   persistent: true,
 });

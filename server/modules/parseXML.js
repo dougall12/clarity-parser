@@ -48,7 +48,7 @@ export default function XMLtoCsvFormat(xmlData) {
     let rObj = {
       description: obj.Description,
       quantity: obj.Quantity,
-      unitAmount: obj.UnitPrice,
+      unitAmount: obj.UnitPrice || 0,
       discount: obj.Discount,
       accountCode: obj.NominalCode,
       taxType: obj.TaxCode,
