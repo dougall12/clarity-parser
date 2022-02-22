@@ -43,6 +43,11 @@ export default function XMLtoCsvFormat(xmlData) {
     return rA;
   });
 
+  //Make single line invoices an array
+  if (inv[0].Document.Item instanceof Array === false) {
+    inv[0].Document.Item = [inv[0].Document.Item];
+  }
+
   //!Item specific details
   const records = inv[0].Document.Item.map((obj) => {
     let rObj = {
